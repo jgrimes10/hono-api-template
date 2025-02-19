@@ -7,7 +7,8 @@
         "lint": "biome check",
         "lint:fix": "biome check --write",
         "prepare": "husky",
-        "test": "NODE_ENV=test vitest"
+        "test": "NODE_ENV=test vitest run",
+        "test:watch": "NODE_ENV=test vitest"
     },
     "dependencies": {
         "@asteasolutions/zod-to-openapi": "^7.3.0",
