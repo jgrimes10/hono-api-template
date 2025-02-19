@@ -7,19 +7,16 @@ import configureOpenApi from './lib/configure-open-api';
 const app = createApp();
 
 /** The routes. */
-const routes = [
-    index,
-    tasks,
-] as const;
+const routes = [index, tasks] as const;
 
 // Configure OpenAPI.
 configureOpenApi(app);
 
 // Set up the routes.
-routes.forEach((route) => {
-    app.route('/', route);
-});
+for (const route of routes) {
+  app.route('/', route);
+}
 
-export type AppType = typeof routes[number];
+export type AppType = (typeof routes)[number];
 
 export default app;

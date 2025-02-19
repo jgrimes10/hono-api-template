@@ -5,13 +5,13 @@ import * as schema from './schema';
 
 /** The client object. */
 const client = createClient({
-    url: env.DATABASE_URL,
-    authToken: env.DATABASE_AUTH_TOKEN,
+  url: env.DATABASE_URL,
+  authToken: env.DATABASE_AUTH_TOKEN,
 });
 
 /** The database object. */
 const db = drizzle(client, {
-    schema,
+  schema,
 });
 
 export default db;

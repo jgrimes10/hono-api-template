@@ -9,11 +9,11 @@ import { defaultHook } from 'stoker/openapi';
  * @returns {OpenAPIHono<AppBindings>} The router.
  */
 export function createRouter(): OpenAPIHono<AppBindings> {
-    /** Create an OpenAPIHono instance. */
-    return new OpenAPIHono<AppBindings>({
-        strict: false,
-        defaultHook,
-    });
+  /** Create an OpenAPIHono instance. */
+  return new OpenAPIHono<AppBindings>({
+    strict: false,
+    defaultHook,
+  });
 }
 
 /**
@@ -21,24 +21,24 @@ export function createRouter(): OpenAPIHono<AppBindings> {
  * @returns {OpenAPIHono<AppBindings>} The app.
  */
 export default function createApp(): OpenAPIHono<AppBindings> {
-    /** Create an OpenAPIHono instance. */
-    const app = createRouter();
+  /** Create an OpenAPIHono instance. */
+  const app = createRouter();
 
-    /**
-     * Add middlewares.
-     */
+  /**
+   * Add middlewares.
+   */
 
-    // Add a favicon middleware that serves an emoji favicon.
-    app.use(serveEmojiFavicon('📝'));
-    // Add a logger middleware that logs requests.
-    app.use(pinoLogger());
+  // Add a favicon middleware that serves an emoji favicon.
+  app.use(serveEmojiFavicon('📝'));
+  // Add a logger middleware that logs requests.
+  app.use(pinoLogger());
 
-    // Add a not found handler.
-    app.notFound(notFound);
-    // Add an error handler.
-    app.onError(onError);
+  // Add a not found handler.
+  app.notFound(notFound);
+  // Add an error handler.
+  app.onError(onError);
 
-    return app;
+  return app;
 }
 
 /**
@@ -47,8 +47,8 @@ export default function createApp(): OpenAPIHono<AppBindings> {
  * @returns {OpenAPIHono<AppBindings>} The test app.
  */
 export function createTestApp(router: AppOpenApi): OpenAPIHono<AppBindings> {
-    const testApp = createApp();
-    testApp.route('/', router);
+  const testApp = createApp();
+  testApp.route('/', router);
 
-    return testApp;
+  return testApp;
 }
