@@ -26,7 +26,7 @@ const client = testClient(createApp().route('/', router));
 
 describe('tasks route', () => {
     beforeAll(async () => {
-        execSync('pnpm drizzle-kit push');
+        execSync('npx drizzle-kit push');
     });
 
     afterAll(async () => {
