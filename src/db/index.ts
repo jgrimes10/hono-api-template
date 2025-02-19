@@ -1,6 +1,7 @@
 import env from '@/env';
 import { createClient } from '@libsql/client';
 import { drizzle } from 'drizzle-orm/libsql';
+import * as schema from './schema';
 
 /** The client object. */
 const client = createClient({
@@ -9,6 +10,8 @@ const client = createClient({
 });
 
 /** The database object. */
-const db = drizzle(client);
+const db = drizzle(client, {
+    schema,
+});
 
 export default db;

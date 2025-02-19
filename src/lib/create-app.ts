@@ -1,11 +1,14 @@
-import type { AppBindings } from '@/lib/types';
+import type { AppBindings, AppOpenApi } from '@/lib/types';
 import { pinoLogger } from '@/middlewares/pino-logger.js';
 import { OpenAPIHono } from '@hono/zod-openapi';
 import { notFound, onError, serveEmojiFavicon } from 'stoker/middlewares';
 import { defaultHook } from 'stoker/openapi';
 
-/** Create an OpenAPIHono instance. */
-export function createRouter() {
+/**
+ * Create a router.
+ * @returns {OpenAPIHono<AppBindings>} The router.
+ */
+export function createRouter(): OpenAPIHono<AppBindings> {
     /** Create an OpenAPIHono instance. */
     return new OpenAPIHono<AppBindings>({
         strict: false,
@@ -13,8 +16,11 @@ export function createRouter() {
     });
 }
 
-/** Create an OpenAPIHono instance and configure it. */
-export default function createApp() {
+/**
+ * Create an app with the default middlewares.
+ * @returns {OpenAPIHono<AppBindings>} The app.
+ */
+export default function createApp(): OpenAPIHono<AppBindings> {
     /** Create an OpenAPIHono instance. */
     const app = createRouter();
 
@@ -33,4 +39,16 @@ export default function createApp() {
     app.onError(onError);
 
     return app;
+}
+
+/**
+ * Create a test app with the given router.
+ * @param {AppOpenApi} router The router to use.
+ * @returns {OpenAPIHono<AppBindings>} The test app.
+ */
+export function createTestApp(router: AppOpenApi): OpenAPIHono<AppBindings> {
+    const testApp = createApp();
+    testApp.route('/', router);
+
+    return testApp;
 }

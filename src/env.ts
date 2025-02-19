@@ -1,16 +1,23 @@
 import type { ZodError } from 'zod';
+import path from 'node:path';
 import { config as dotenv } from 'dotenv';
 import { expand } from 'dotenv-expand';
 import { z } from 'zod';
 
 // Set up environment variables.
-expand(dotenv());
+expand(dotenv({
+    path: path.resolve(
+        process.cwd(),
+        // eslint-disable-next-line node/no-process-env
+        process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
+    ),
+}));
 
 /** The schema for the environment variables. */
 const EnvSchema = z.object({
     DATABASE_URL: z.string().url(),
     DATABASE_AUTH_TOKEN: z.string().optional(),
-    LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace']),
+    LOG_LEVEL: z.enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace', 'silent']),
     NODE_ENV: z.string().default('development'),
     PORT: z.coerce.number().default(9999),
 }).superRefine((input, ctx) => {
