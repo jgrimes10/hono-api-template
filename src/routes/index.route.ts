@@ -4,6 +4,7 @@ import * as HttpStatusCodes from 'stoker/http-status-codes';
 import { jsonContent } from 'stoker/openapi/helpers';
 import { createMessageObjectSchema } from 'stoker/openapi/schemas';
 
+/** Index route. */
 const router = createRouter()
     .openapi(createRoute({
         tags: ['Index'],
