@@ -14,7 +14,7 @@ configureOpenApi(app);
 
 // Set up the routes.
 for (const route of routes) {
-  app.route('/', route);
+    app.route('/', route);
 }
 
 export type AppType = (typeof routes)[number];
